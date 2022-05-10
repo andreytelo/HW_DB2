@@ -1,46 +1,46 @@
 create table if not exists Genre(
-	id serial primary key,
+	id_genre serial primary key,
 	genre_name varchar(40)
 );
 
 create table if not exists Artist(
-	id serial primary key,
+	id_artist serial primary key,
 	artist_name varchar(40)
 );
 
 create table if not exists ArtistGenre(
-	idGenre integer references Genre(id),
-	idArtist integer references Artist(id),
-	constraint AG primary key (idGenre, idArtist)
+	idGenre integer references Genre(id_genre),
+	idArtist integer references Artist(id_artist),
+	constraint ArtGen primary key (idGenre, idArtist)
 );
 
 create table if not exists Album(
-	id serial primary key,
+	id_album serial primary key,
 	album_name varchar(40),
 	release_date integer
 );
 
 create table if not exists ArtistAlbum(
-	idAlbum integer references Album(id),
-	idArtist integer references Artist(id),
+	idAlbum integer references Album(id_album),
+	idArtist integer references Artist(id_artist),
 	constraint ArtAlb primary key (idAlbum, idArtist)
 );
 
 create table if not exists Tracks(
-	id serial primary key,
+	id_track serial primary key,
 	track_name varchar(40),
-	track_duration time,
-	album_id integer references album(id)
+	track_duration integer,
+	album_id integer references album(id_album)
 );
 
 create table if not exists Collection(
-	id serial primary key,
-	Collection_name varchar(40),
-	Release_date integer
+	id_collection serial primary key,
+	collection_name varchar(40),
+	release_date integer
 );
 
 create table if not exists TrackCollection(
-	idTrack integer references Tracks(id),
-	idCollection integer references Collection(id),
-	constraint TC primary key (idTrack, idCollection)
+	idTrack integer references Tracks(id_track),
+	idCollection integer references Collection(id_collection),
+	constraint TrCol primary key (idTrack, idCollection)
 );
